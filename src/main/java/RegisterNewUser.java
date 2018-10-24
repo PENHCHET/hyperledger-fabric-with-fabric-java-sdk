@@ -21,10 +21,12 @@ public class RegisterNewUser {
         // 3. Create a new Enrollment instance
         Enrollment adminEnrollment = caClient.enroll("admin", "admin");
 
-        String newUsername = "DARA_PENHCHET5";
+        String newUsername = "PENHCHET";
+        String newPassword = "123456";
 
         // 4. User is not registered, Create a new RegistrationRequest
         RegistrationRequest registrationRequest = new  RegistrationRequest(newUsername, ".");
+        registrationRequest.setSecret(newPassword);
 
         // 5. Create the UserContext for Registrar
         UserContext registrarUserContext = new UserContext();
