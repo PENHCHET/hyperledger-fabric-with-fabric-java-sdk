@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="fabricsdkjava" />
+        <module name="hyperledger-fabric-with-fabric-java-sdk" />
       </profile>
     </annotationProcessing>
   </component>
