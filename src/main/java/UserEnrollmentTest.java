@@ -51,7 +51,7 @@ public class UserEnrollmentTest {
         // 7. Create a new Channel instance
         Channel channel = hfClient.newChannel("mychannel");
         // 7.1.1. Create a new Peer instance
-        Peer peer = hfClient.newPeer("peer1.coocon.kshrd.com.kh", "grpc://127.0.0.1:8051");
+        Peer peer = hfClient.newPeer("peer0.coocon.kshrd.com.kh", "grpc://127.0.0.1:7051");
         // 7.1.2 Add a new Peer to Channel
         channel.addPeer(peer);
 
@@ -74,7 +74,7 @@ public class UserEnrollmentTest {
         // 10. Build ChaincodID providing the ChaincodeName and Version.
         ChaincodeID ccID = ChaincodeID.newBuilder()
                 .setName("kshrdsmartcontract")
-                .setVersion("1.0")
+                .setVersion("1.0.1")
                 .build();
         // 11. Set ChaincodeID to QueryByChaincodeRequest
         qpr.setChaincodeID(ccID);

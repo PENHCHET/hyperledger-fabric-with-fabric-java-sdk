@@ -63,7 +63,7 @@ public class QueryChaincode {
         // 10. Build ChaincodID providing the ChaincodeName and Version.
         ChaincodeID ccID = ChaincodeID.newBuilder()
                 .setName("kshrdsmartcontract")
-                .setVersion("1.0")
+                .setVersion("1.0.1")
                 .build();
         // 11. Set ChaincodeID to QueryByChaincodeRequest
         qpr.setChaincodeID(ccID);
