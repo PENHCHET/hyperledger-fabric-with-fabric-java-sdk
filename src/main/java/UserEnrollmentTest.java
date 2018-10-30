@@ -1,41 +1,52 @@
 import com.google.protobuf.ByteString;
 import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.security.CryptoPrimitives;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
-import org.hyperledger.fabric_ca.sdk.HFCAClient;
 
 import java.security.PrivateKey;
 import java.util.Collection;
 
-public class QueryChaincode {
+public class UserEnrollmentTest {
 
     public static void main(String args[]) throws Exception {
-        // --- For Query Chaincode
 
-        // 1. Create a new CryptoSuite instance
-        CryptoSuite cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
+        CryptoPrimitives cryptoPrimitives = new CryptoPrimitives();
+        String str= "-----BEGIN PRIVATE KEY-----\n" +
+                "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgEou4Uh8frVJSFY4o\n" +
+                "U0PmqEuFwmYALdbp3JspFMV1+c+hRANCAAQdWhSviUPldycNyRWAsK9qvj0Ktrvc\n" +
+                "v1GqJFs49O9HHTdbQv+2dUmh4XcRagwjw1qrRJWjD5zN0VAnjY5gw04Y\n" +
+                "-----END PRIVATE KEY-----\n";
 
-        // 2. Create a new HFCAClient instance
-        HFCAClient caClient = HFCAClient.createNewInstance("http://127.0.0.1:7054", null);
 
-        // 2.1. Set CryptoSuite
-        caClient.setCryptoSuite(cryptoSuite); // Signature Algorithm, Verification,
+        PrivateKey privateKey1 = cryptoPrimitives.bytesToPrivateKey(str.getBytes());
+        String certification = "-----BEGIN CERTIFICATE-----\n" +
+                "MIICJjCCAcygAwIBAgIRAPEVlPKiVQZzZNxoAuLVNBYwCgYIKoZIzj0EAwIwezEL\n" +
+                "MAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\n" +
+                "cmFuY2lzY28xHTAbBgNVBAoTFHdlYmNhc2gua3NocmQuY29tLmtoMSAwHgYDVQQD\n" +
+                "ExdjYS53ZWJjYXNoLmtzaHJkLmNvbS5raDAeFw0xODA5MjcxNzM5MjVaFw0yODA5\n" +
+                "MjQxNzM5MjVaMF8xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYw\n" +
+                "FAYDVQQHEw1TYW4gRnJhbmNpc2NvMSMwIQYDVQQDDBpVc2VyMUB3ZWJjYXNoLmtz\n" +
+                "aHJkLmNvbS5raDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABB1aFK+JQ+V3Jw3J\n" +
+                "FYCwr2q+PQq2u9y/UaokWzj070cdN1tC/7Z1SaHhdxFqDCPDWqtElaMPnM3RUCeN\n" +
+                "jmDDThijTTBLMA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQk\n" +
+                "MCKAIGMkiVq9Az4oo0HoFrVmEDPE7FprQoq2JvZ8vaQHkCjNMAoGCCqGSM49BAMC\n" +
+                "A0gAMEUCIQC9Asgmy+O7yxrKLPxYtQuUvGpnXMD3YtgfkcfJZVFLCgIgLSINXj1B\n" +
+                "x1WSYnHgmzv0gn4PjWFRr9GRUWMVJ11TIV4=\n" +
+                "-----END CERTIFICATE-----\n";
 
-        // 3. Create a new Enrollment instance
-        Enrollment adminEnrollment = caClient.enroll("admin", "admin");
+        Enrollment userEnrollment = new UserEnrollment(privateKey1, certification);
 
-        // 4. Create the UserContext
-        UserContext admin = new UserContext();
-        admin.setName("admin");
-        admin.setAccount("admin");
-        admin.setMspId("CooconMSP");
-        admin.setEnrollment(adminEnrollment);
+        // 5. Create the UserContext for Registrar
+        UserContext userContext = new UserContext();
+        userContext.setName("User1");
+        userContext.setAccount("User1");
+        userContext.setAffilation(".");
+        userContext.setMspId("WebcashMSP");
+        userContext.setEnrollment(userEnrollment);
 
-        // 5. Create a new HFClient instance
         HFClient hfClient = HFClient.createNewInstance();
-        hfClient.setCryptoSuite(cryptoSuite);
-
-        // 6. HFClient needs to set the UserContext
-        hfClient.setUserContext(admin);
+        hfClient.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
+        hfClient.setUserContext(userContext);
 
         // 7. Create a new Channel instance
         Channel channel = hfClient.newChannel("mychannel");
@@ -89,11 +100,13 @@ public class QueryChaincode {
                 // 15.1.2. Show the Payload
                 System.out.println(payload.toStringUtf8());
 
-            // 15.2
+                // 15.2
             } else {
                 // 15.1. Show the Response Status
                 System.err.println("response failed. status: " + response.getStatus().getStatus());
             }
         }
+
+        //System.out.println(newUser.toString());
     }
 }

@@ -37,7 +37,7 @@ public class InvokeChaincode {
         // 7. Create a new Channel instance
         Channel channel = hfClient.newChannel("mychannel");
         // 7.1.1. Create a new Peer instance
-        Peer peer = hfClient.newPeer("peer0.coocon.kshrd.com.kh", "grpc://127.0.0.1:7051");
+        Peer peer = hfClient.newPeer("peer1.coocon.kshrd.com.kh", "grpc://127.0.0.1:8051");
         // 7.1.2 Add a new Peer to Channel
         channel.addPeer(peer);
 
