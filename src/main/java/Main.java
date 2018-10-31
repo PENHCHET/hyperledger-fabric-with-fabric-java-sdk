@@ -22,7 +22,7 @@ public class Main {
     }
 
     public static void main(String args[]){
-        String text = "BFEBFBFF000306A99691929E".replaceAll("-", "");
+        String text = "48060-88200-12180-51420-96100".replaceAll("-", "");
         int num = stringToNumber("SRENG VANHAK");
         String text2 = "";
         int cnt = text.length();
