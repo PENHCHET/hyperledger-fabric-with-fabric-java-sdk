@@ -23,12 +23,12 @@ public class RegisterNewUser {
         // Create a new Enrollment instance
         Enrollment adminEnrollment = caClient.enroll("admin", "admin");
 
-        String newUsername = "PENHCHET";
+        String newUsername = "PIRANG1";
         String newPassword = "123456";
 
         // User is not registered, Create a new RegistrationRequest
         RegistrationRequest registrationRequest = new  RegistrationRequest(newUsername, ".");
-        registrationRequest.setSecret(newPassword);
+        //registrationRequest.setSecret(newPassword);
 
         // Create the UserContext for Registrar
         UserContext registrarUserContext = new UserContext();
@@ -40,7 +40,8 @@ public class RegisterNewUser {
 
         // Register New Username by Registrar Admin User
         String enrollSecret = caClient.register(registrationRequest, registrarUserContext);
-        System.out.println(enrollSecret);
+        System.out.println("Password   : " + newPassword);
+        System.out.println("Secret Key : " + enrollSecret);
 
         // HFCA Client makes enrol call to ca server
         Enrollment enrollment = caClient.enroll(newUsername, enrollSecret);
@@ -69,53 +70,53 @@ public class RegisterNewUser {
         System.out.println("Private Key Bytes ==> " + pemStrWriter.toString().getBytes("UTF-8"));
         System.out.println("Certificate       ==> " + enrollment.getCert());
 
-        CryptoPrimitives crypto = new CryptoPrimitives();
-
-        // Convert PEM Private Key to PrivateKey Object
-        PrivateKey privateKey = crypto.bytesToPrivateKey(pemStrWriter.toString().getBytes("UTF-8"));
-
-        // Convert the Private PEM Format
-        StringWriter pemStrWriter1 = new StringWriter();
-        PEMWriter pemWriter1 = new PEMWriter(pemStrWriter1);
-        pemWriter1.writeObject(privateKey);
-        pemWriter1.close();
-
-        // Can Store Enrollment in Database with Private Key with PEM/Binary Format and Certificate
-        System.out.println("Name              ==> " + newUser.getName());
-        System.out.println("Account           ==> " + newUser.getAccount());
-        System.out.println("Affiliation       ==> " + newUser.getAffiliation());
-        System.out.println("MspID             ==> " + newUser.getMspId());
-        System.out.println("Private Key PEM   ==> " + pemStrWriter1.toString());
-        System.out.println("Private Key Bytes ==> " + pemStrWriter1.toString().getBytes("UTF-8"));
-        System.out.println("Certificate       ==> " + enrollment.getCert());
-
-
-        String str= "-----BEGIN PRIVATE KEY-----\n" +
-                "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg9kTuJitrC4I6QB+c\n" +
-                "OwFZ/HGGt/kfAFmmUfD1goaUBuehRANCAAS1eQrnmGq1yk/Gh/gCqAn2IxbNMH3s\n" +
-                "2OOXvYr9LDMCLowhmqCOlYLzvrptZwqPSK/vAEgRWc/D7MEzbuMkqqba\n" +
-                "-----END PRIVATE KEY-----\n";
+//        CryptoPrimitives crypto = new CryptoPrimitives();
+//
+//        // Convert PEM Private Key to PrivateKey Object
+//        PrivateKey privateKey = crypto.bytesToPrivateKey(pemStrWriter.toString().getBytes("UTF-8"));
+//
+//        // Convert the Private PEM Format
+//        StringWriter pemStrWriter1 = new StringWriter();
+//        PEMWriter pemWriter1 = new PEMWriter(pemStrWriter1);
+//        pemWriter1.writeObject(privateKey);
+//        pemWriter1.close();
+//
+//        // Can Store Enrollment in Database with Private Key with PEM/Binary Format and Certificate
+//        System.out.println("Name              ==> " + newUser.getName());
+//        System.out.println("Account           ==> " + newUser.getAccount());
+//        System.out.println("Affiliation       ==> " + newUser.getAffiliation());
+//        System.out.println("MspID             ==> " + newUser.getMspId());
+//        System.out.println("Private Key PEM   ==> " + pemStrWriter1.toString());
+//        System.out.println("Private Key Bytes ==> " + pemStrWriter1.toString().getBytes("UTF-8"));
+//        System.out.println("Certificate       ==> " + enrollment.getCert());
 
 
-        PrivateKey privateKey1 = crypto.bytesToPrivateKey(str.getBytes("UTF-8"));
-        String certification = "-----BEGIN CERTIFICATE-----\n" +
-                "MIICJjCCAcygAwIBAgIRAPEVlPKiVQZzZNxoAuLVNBYwCgYIKoZIzj0EAwIwezEL\n" +
-                "MAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\n" +
-                "cmFuY2lzY28xHTAbBgNVBAoTFHdlYmNhc2gua3NocmQuY29tLmtoMSAwHgYDVQQD\n" +
-                "ExdjYS53ZWJjYXNoLmtzaHJkLmNvbS5raDAeFw0xODA5MjcxNzM5MjVaFw0yODA5\n" +
-                "MjQxNzM5MjVaMF8xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYw\n" +
-                "FAYDVQQHEw1TYW4gRnJhbmNpc2NvMSMwIQYDVQQDDBpVc2VyMUB3ZWJjYXNoLmtz\n" +
-                "aHJkLmNvbS5raDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABB1aFK+JQ+V3Jw3J\n" +
-                "FYCwr2q+PQq2u9y/UaokWzj070cdN1tC/7Z1SaHhdxFqDCPDWqtElaMPnM3RUCeN\n" +
-                "jmDDThijTTBLMA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQk\n" +
-                "MCKAIGMkiVq9Az4oo0HoFrVmEDPE7FprQoq2JvZ8vaQHkCjNMAoGCCqGSM49BAMC\n" +
-                "A0gAMEUCIQC9Asgmy+O7yxrKLPxYtQuUvGpnXMD3YtgfkcfJZVFLCgIgLSINXj1B\n" +
-                "x1WSYnHgmzv0gn4PjWFRr9GRUWMVJ11TIV4=\n" +
-                "-----END CERTIFICATE-----\n";
-
-        Enrollment enrollment1 = new UserEnrollment(privateKey1, certification);
-
-        System.out.println(newUser.toString());
+//        String str= "-----BEGIN PRIVATE KEY-----\n" +
+//                "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg9kTuJitrC4I6QB+c\n" +
+//                "OwFZ/HGGt/kfAFmmUfD1goaUBuehRANCAAS1eQrnmGq1yk/Gh/gCqAn2IxbNMH3s\n" +
+//                "2OOXvYr9LDMCLowhmqCOlYLzvrptZwqPSK/vAEgRWc/D7MEzbuMkqqba\n" +
+//                "-----END PRIVATE KEY-----\n";
+//
+//
+//        PrivateKey privateKey1 = crypto.bytesToPrivateKey(str.getBytes("UTF-8"));
+//        String certification = "-----BEGIN CERTIFICATE-----\n" +
+//                "MIICJjCCAcygAwIBAgIRAPEVlPKiVQZzZNxoAuLVNBYwCgYIKoZIzj0EAwIwezEL\n" +
+//                "MAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\n" +
+//                "cmFuY2lzY28xHTAbBgNVBAoTFHdlYmNhc2gua3NocmQuY29tLmtoMSAwHgYDVQQD\n" +
+//                "ExdjYS53ZWJjYXNoLmtzaHJkLmNvbS5raDAeFw0xODA5MjcxNzM5MjVaFw0yODA5\n" +
+//                "MjQxNzM5MjVaMF8xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYw\n" +
+//                "FAYDVQQHEw1TYW4gRnJhbmNpc2NvMSMwIQYDVQQDDBpVc2VyMUB3ZWJjYXNoLmtz\n" +
+//                "aHJkLmNvbS5raDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABB1aFK+JQ+V3Jw3J\n" +
+//                "FYCwr2q+PQq2u9y/UaokWzj070cdN1tC/7Z1SaHhdxFqDCPDWqtElaMPnM3RUCeN\n" +
+//                "jmDDThijTTBLMA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQk\n" +
+//                "MCKAIGMkiVq9Az4oo0HoFrVmEDPE7FprQoq2JvZ8vaQHkCjNMAoGCCqGSM49BAMC\n" +
+//                "A0gAMEUCIQC9Asgmy+O7yxrKLPxYtQuUvGpnXMD3YtgfkcfJZVFLCgIgLSINXj1B\n" +
+//                "x1WSYnHgmzv0gn4PjWFRr9GRUWMVJ11TIV4=\n" +
+//                "-----END CERTIFICATE-----\n";
+//
+//        Enrollment enrollment1 = new UserEnrollment(privateKey1, certification);
+//
+//        System.out.println(newUser.toString());
 
     }
 }
