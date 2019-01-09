@@ -21,21 +21,35 @@ public class QueryChaincode {
         caClient.setCryptoSuite(cryptoSuite); // Signature Algorithm, Verification,
 
         // Create a new Enrollment instance
-        Enrollment adminEnrollment = caClient.enroll("admin", "admin");
+//        Enrollment adminEnrollment = caClient.enroll("admin", "admin");
 
         // Create the UserContext
-        UserContext admin = new UserContext();
-        admin.setName("admin");
-        admin.setAccount("admin");
-        admin.setMspId("CooconMSP");
-        admin.setEnrollment(adminEnrollment);
+//        UserContext admin = new UserContext();
+//        admin.setName("admin");
+//        admin.setAccount("admin");
+//        admin.setMspId("CooconMSP");
+//        admin.setEnrollment(adminEnrollment);
+
+        String newUsername = "PENHCHET4";
+        String newPassword = "123456";
+
+        Enrollment enrollment = caClient.enroll(newUsername, newPassword);
+
+        System.out.println("New User ==> " + newUsername + "  has been enrolled");
+
+        UserContext newUser = new UserContext();
+        newUser.setName(newUsername);
+        newUser.setAccount(newUsername);
+        newUser.setAffilation(".");
+        newUser.setMspId("CooconMSP");
+        newUser.setEnrollment(enrollment);
 
         // Create a new HFClient instance
         HFClient hfClient = HFClient.createNewInstance();
         hfClient.setCryptoSuite(cryptoSuite);
 
         // HFClient needs to set the UserContext
-        hfClient.setUserContext(admin);
+        hfClient.setUserContext(newUser);
 
         // Create a new Channel instance
         Channel channel = hfClient.newChannel("mychannel");

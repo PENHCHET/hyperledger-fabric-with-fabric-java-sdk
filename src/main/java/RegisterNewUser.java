@@ -2,6 +2,7 @@ import org.bouncycastle.openssl.PEMWriter;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.security.CryptoPrimitives;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
+import org.hyperledger.fabric_ca.sdk.Attribute;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 
@@ -37,6 +38,9 @@ public class RegisterNewUser {
         registrarUserContext.setAffilation(".");
         registrarUserContext.setMspId("CooconMSP");
         registrarUserContext.setEnrollment(adminEnrollment);
+
+        registrationRequest.addAttribute(new Attribute("MSP_ID", "CooconMSP"));
+        registrationRequest.addAttribute(new Attribute("NAME", "CooconMSP"));
 
         // Register New Username by Registrar Admin User
         String enrollSecret = caClient.register(registrationRequest, registrarUserContext);
