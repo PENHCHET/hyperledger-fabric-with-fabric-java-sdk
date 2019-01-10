@@ -10,8 +10,11 @@ import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.HFCAIdentity;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.security.cert.X509CRL;
+import java.security.cert.X509Certificate;
+import java.io.*;
+import java.security.cert.CertificateFactory;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
@@ -89,6 +92,13 @@ public class ReadAttribute {
 
         // revoke all enrollment of this user and request back a CRL
         String crl = caClient.revoke(registrarUserContext, newUser.getName(), null, true);
+
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+
+        InputStream inputStream = new ByteArrayInputStream(Charset.forName("UTF-8").encode(crl).array());
+        X509CRL x509CRL = (X509CRL) cf.generateCRL(inputStream);
+
+//        x509CRL.isRevoked()
 
         System.out.println("Start Revoked ==> " + startedWithRevokes);
 
@@ -302,5 +312,14 @@ public class ReadAttribute {
         X509CRLHolder holder = (X509CRLHolder) pem.readObject();
 
         return holder.toASN1Structure().getRevokedCertificates();
+    }
+
+    private X509Certificate getCert(byte[] certBytes) throws Exception {
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(new ByteArrayInputStream(certBytes));
+        CertificateFactory certificateFactory = CertificateFactory.getInstance("X509");
+        X509Certificate certificate = (X509Certificate) certificateFactory.generateCertificate(bufferedInputStream);
+
+        certificate.getEncoded();
+        return certificate;
     }
 }

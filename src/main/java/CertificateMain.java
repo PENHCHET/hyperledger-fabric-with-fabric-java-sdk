@@ -15,19 +15,20 @@ public class CertificateMain {
 
     public static void main(String args[]) throws Exception {
         String certification = "-----BEGIN CERTIFICATE-----\n" +
-                "MIICaTCCAhCgAwIBAgIUPTEiLWYsapDDNM4i4taQjARQtY0wCgYIKoZIzj0EAwIw\n" +
+                "MIICkTCCAjegAwIBAgIUdXwaCwLmCYKxOSITH2OGB6hHO/IwCgYIKoZIzj0EAwIw\n" +
                 "eTELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNh\n" +
                 "biBGcmFuY2lzY28xHDAaBgNVBAoTE2Nvb2Nvbi5rc2hyZC5jb20ua2gxHzAdBgNV\n" +
-                "BAMTFmNhLmNvb2Nvbi5rc2hyZC5jb20ua2gwHhcNMTkwMTEwMDUxNDAwWhcNMjAw\n" +
-                "MTEwMDUxOTAwWjAkMQ8wDQYDVQQLEwZjbGllbnQxETAPBgNVBAMTCFBFTkhDSEVU\n" +
-                "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEHtFnn75OxMa89gBSHM7PRjPydEg7\n" +
-                "kMAGdwcyafVge10xwIMSe/j7vubl04Rv5KekL58YD5h+4v7ov8kw1cyTa6OByjCB\n" +
-                "xzAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUcLsAgDcS\n" +
-                "nPNxtolCqn7Oj+wazncwKwYDVR0jBCQwIoAgdF47QBjtpcFXj4pLZvpvU/Dlb4Cb\n" +
-                "0Hd1gWXDGhPzD5swWwYIKgMEBQYHCAEET3siYXR0cnMiOnsiaGYuQWZmaWxpYXRp\n" +
-                "b24iOiIiLCJoZi5FbnJvbGxtZW50SUQiOiJQRU5IQ0hFVCIsImhmLlR5cGUiOiJj\n" +
-                "bGllbnQifX0wCgYIKoZIzj0EAwIDRwAwRAIgNQfShvQfgTW8HGyorDTUlH6G3gKI\n" +
-                "Hg/8H1Qz/YDWLM8CIAISCbhCz2MK0be7wxn7UNzubnBpzb/Xrqvv8M/+dAp/\n" +
+                "BAMTFmNhLmNvb2Nvbi5rc2hyZC5jb20ua2gwHhcNMTkwMTEwMDcwNDAwWhcNMjAw\n" +
+                "MTEwMDcwOTAwWjAjMQ8wDQYDVQQLEwZjbGllbnQxEDAOBgNVBAMTB1BJUkFORzIw\n" +
+                "WTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATcNdUJaBrZeOZE6/lHBwJtJ2ykcIxD\n" +
+                "fsnwA7YGYaTAfu9gWQ0cAAp0H6VChWN4BarGX7KOZX5lEJfq0w9rgeOco4HyMIHv\n" +
+                "MA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBRyHY2GQIxb\n" +
+                "fwYRQh9Tv0pYwmMATjArBgNVHSMEJDAigCB0XjtAGO2lwVePiktm+m9T8OVvgJvQ\n" +
+                "d3WBZcMaE/MPmzCBggYIKgMEBQYHCAEEdnsiYXR0cnMiOnsiTVNQX0lEIjoiQ29v\n" +
+                "Y29uTVNQIiwiTkFNRSI6IkNvb2Nvbk1TUCIsImhmLkFmZmlsaWF0aW9uIjoiIiwi\n" +
+                "aGYuRW5yb2xsbWVudElEIjoiUElSQU5HMiIsImhmLlR5cGUiOiJjbGllbnQifX0w\n" +
+                "CgYIKoZIzj0EAwIDSAAwRQIhALWCmn6giLNrG1LMyGPhdG+g8hGy5Ffg03EY3zNe\n" +
+                "gTLRAiAdHolS1iiQStRqh4oD594AR0wnB9k/yGJM1zdWDruwJg==\n" +
                 "-----END CERTIFICATE-----";
 
         X509Certificate certificate = getCert(certification.getBytes());

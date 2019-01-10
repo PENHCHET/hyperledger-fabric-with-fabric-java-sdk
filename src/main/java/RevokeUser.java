@@ -10,8 +10,11 @@ import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.HFCAIdentity;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509CRL;
+import java.security.cert.X509Certificate;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
@@ -31,7 +34,7 @@ public class RevokeUser {
         // Create a new Enrollment instance
         Enrollment adminEnrollment = caClient.enroll("admin", "admin");
 
-        String newUsername = "PENHCHET";
+        String newUsername = "PENHCHET19";
         String newPassword = "123456";
 
         // User is not registered, Create a new RegistrationRequest
@@ -125,6 +128,18 @@ public class RevokeUser {
         }
 
         System.out.println(crl);
+
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+        InputStream inputStream = new ByteArrayInputStream(Charset.forName("UTF-8").encode("-----BEGIN X509 CRL-----\n" +
+                crl.getBytes("UTF-8") +
+                "-----END X509 CRL-----".getBytes()).array());
+        X509CRL x509CRL = (X509CRL) cf.generateCRL(inputStream);
+
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(new ByteArrayInputStream(enrollment.getCert().getBytes()));
+        CertificateFactory certificateFactory = CertificateFactory.getInstance("X509");
+        X509Certificate certificate = (X509Certificate) certificateFactory.generateCertificate(bufferedInputStream);
+
+        System.out.println("IS REVOKED==> " + x509CRL.isRevoked(certificate));
 
         // Create a new HFClient instance
         HFClient hfClient = HFClient.createNewInstance();

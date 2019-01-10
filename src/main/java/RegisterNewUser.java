@@ -24,7 +24,7 @@ public class RegisterNewUser {
         // Create a new Enrollment instance
         Enrollment adminEnrollment = caClient.enroll("admin", "admin");
 
-        String newUsername = "PIRANG1";
+        String newUsername = "PIRANG2";
         String newPassword = "123456";
 
         // User is not registered, Create a new RegistrationRequest
@@ -39,8 +39,8 @@ public class RegisterNewUser {
         registrarUserContext.setMspId("CooconMSP");
         registrarUserContext.setEnrollment(adminEnrollment);
 
-        registrationRequest.addAttribute(new Attribute("MSP_ID", "CooconMSP"));
-        registrationRequest.addAttribute(new Attribute("NAME", "CooconMSP"));
+        registrationRequest.addAttribute(new Attribute("MSP_ID", "CooconMSP", true));
+        registrationRequest.addAttribute(new Attribute("NAME", "CooconMSP", true));
 
         // Register New Username by Registrar Admin User
         String enrollSecret = caClient.register(registrationRequest, registrarUserContext);
