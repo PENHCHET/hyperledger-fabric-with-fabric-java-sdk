@@ -278,10 +278,7 @@ public class RevokeUser {
 
         hfClient.setUserContext(admin);
 
-
-
         // HFClient needs to set the UserContext
-
 
         // Create a new Channel instance
         Channel channel = hfClient.newChannel("mychannel");

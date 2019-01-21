@@ -3,7 +3,6 @@ import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 
-import java.security.PrivateKey;
 import java.util.Collection;
 
 public class QueryChaincode {

@@ -10,11 +10,11 @@ import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.HFCAIdentity;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 
+import java.io.*;
 import java.nio.charset.Charset;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
-import java.io.*;
-import java.security.cert.CertificateFactory;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;

@@ -1,5 +1,3 @@
-import com.sun.tools.javac.comp.Check;
-import org.bouncycastle.asn1.x509.TBSCertList;
 import org.bouncycastle.cert.X509CRLHolder;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.PEMWriter;
@@ -24,7 +22,6 @@ public class CheckRevoked {
         InputStream inputStream = new ByteArrayInputStream(Charset.forName("UTF-8").encode(CheckRevoked.getRevokes(null)).array());
         X509CRL x509CRL = (X509CRL) cf.generateCRL(inputStream);
 
-
         String cert = "-----BEGIN CERTIFICATE-----\n" +
                 "MIICbTCCAhSgAwIBAgIUC1m62uVYuqcQT/TZs75qYBmqG78wCgYIKoZIzj0EAwIw\n" +
                 "eTELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNh\n" +
@@ -47,8 +44,6 @@ public class CheckRevoked {
         X509Certificate certificate = (X509Certificate) certificateFactory.generateCertificate(bufferedInputStream);
 
         System.out.println(x509CRL.isRevoked(certificate));
-
-
     }
 
     static String  getRevokes(Date r) throws Exception {
